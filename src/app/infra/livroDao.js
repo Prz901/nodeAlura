@@ -56,18 +56,19 @@ class livroDao {
     return new Promise((resolve, reject) => {
       this.db.run(
         `
-      UPDATE livros SET
-      titulo = ?,
-      preco = ?,
-      descricao =?,
-      WHERE id = ?
-      `,
+            UPDATE livros SET
+            titulo = ?,
+            preco = ?,
+            descricao = ?
+            WHERE id = ?
+        `,
         [livro.titulo, livro.preco, livro.descricao, livro.id],
         erro => {
           if (erro) {
-            return reject("Nao foi possivel atualizar o  livro  ");
+            return reject("Não foi possível atualizar o livro!");
           }
-          return resolve();
+
+          resolve();
         }
       );
     });
