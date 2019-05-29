@@ -4,6 +4,13 @@ require("marko/express");
 
 const express = require("express");
 const app = express();
+const bodyParse = require("body-parser");
+
+app.use(
+  bodyParse.urlencoded({
+    extended: true
+  })
+);
 
 const rotas = require("../app/rotas/rotas");
 rotas(app);
