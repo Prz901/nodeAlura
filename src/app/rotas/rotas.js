@@ -28,7 +28,9 @@ module.exports = app => {
   });
 
   app.get("/livros/form", function(req, resp) {
-    resp.marko(require("../views/livros/form/formulario.marko"));
+    resp.marko(require("../views/livros/form/formulario.marko"), {
+      livro: {}
+    });
   });
 
   app.get("/livros/form/:id", function(req, resp) {
