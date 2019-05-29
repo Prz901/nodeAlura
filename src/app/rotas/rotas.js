@@ -31,11 +31,31 @@ module.exports = app => {
     resp.marko(require("../views/livros/form/formulario.marko"));
   });
 
+  app.get("/livros/form/:id", function(req, resp) {
+    const id = req.params.id;
+    const LivroDao = new livroDao(db);
+
+    LivroDao.buscaPorId(id)
+      .then(livro =>
+        resp.marko(require("../views/livros/form/formulario.marko"), {
+          livro: livro
+        })
+      )
+      .catch(erro => console.log(erro));
+  });
+
   app.post("/livros", function(req, resp) {
     console.log(req.body);
     const LivroDao = new livroDao(db);
     LivroDao.adiciona(req.body)
       .then(resp.redirect("/livros"))
+      .catch(erro => console.log(erro));
+  });
+  app.delete("/livros/:id", function(req, resp) {
+    const id = req.params.id;
+    const LivroDao = new livroDao(db);
+    LivroDao.remove(id)
+      .then(() => resp.status(200).end())
       .catch(erro => console.log(erro));
   });
 };
