@@ -26,4 +26,23 @@ module.exports = app => {
       )
       .catch(erro => console.log(erro));
   });
+
+  app.get("/livros/form", function(req, resp) {
+    resp.marko(require("../views/livros/form/formulario.marko"));
+  });
+
+  app.post("/livros", function(req, resp) {
+    console.log(req.body);
+    const LivroDao = new livroDao(db);
+    LivroDao.adiciona(req.body)
+      .then(resp.redirect("/livros"))
+      .catch(erro => console.log(erro));
+  });
 };
+
+// material de apoio de algun metodos do node
+
+/*
+o método use() do Express pode receber dois parâmetros, sendo o primeiro 
+uma string que define as URLs que serão atendidas pelo middleware e como segundo parâmetro uma função
+*/
